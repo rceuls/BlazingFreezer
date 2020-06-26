@@ -3,9 +3,24 @@ option csharp_namespace = "BlazingFreezer";
 
 service FreezerService {
   rpc GetFreezerOverview (FreezerOverviewRequest) returns (FreezerOverviewReply);
+  rpc GetFreezerDetails (FreezerDetailsRequest) returns (FreezerDetailsReply);
 }
 
 message FreezerOverviewRequest {
+}
+
+message FreezerDetailRequest {
+  string id = 1;
+}
+
+message FreezerDetailsReply { 
+  repeated FreezerDetailsItem items = 1;
+}
+
+message FreezerDetailsItem {
+  string drawerId = 1;
+  string itemId = 2;
+  
 }
 
 message FreezerOverviewReply {
