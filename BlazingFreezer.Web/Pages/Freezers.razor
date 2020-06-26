@@ -11,10 +11,10 @@ else
 {
     <table class="table">
         <thead>
-            <tr>
-                <td>Naam</td>
-                <td>Schuiven</td>
-                <td>Items</td>
+        <tr>
+            <td>Naam</td>
+            <td>Schuiven</td>
+            <td>Items</td>
         </tr>
         </thead>
         <tbody>
@@ -32,9 +32,10 @@ else
 
 @code {
     private IEnumerable<FreezerOverviewItem> FreezerItems;
-    
+
     protected override async Task OnInitializedAsync()
     {
-        FreezerItems = (await FreezerClient.GetFreezerOverviewAsync(new FreezerOverviewRequest() )).Items;
+        FreezerItems = (await FreezerClient.GetFreezerOverviewAsync(new FreezerOverviewRequest())).Items;
     }
+
 }

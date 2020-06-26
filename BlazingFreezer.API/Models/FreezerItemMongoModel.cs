@@ -4,7 +4,6 @@ namespace BlazingFreezer.API.Models
 {
     public class FreezerItemMongoModel
     {
-        [BsonElement("name")]
-        public string Name { get; set; }
+        [BsonElement("name")] public string Name { get; set; }
     }
 }

@@ -8,7 +8,9 @@ namespace BlazingFreezer.API.Services
 
         public IMongoDatabase GetDatabase()
         {
-            return _database ??= new MongoClient(new MongoUrl("mongodb://freezer:freezer-pwd@localhost:27017")).GetDatabase("freezer-dev");
+            return _database ??=
+                new MongoClient(new MongoUrl("mongodb://freezer:freezer-pwd@localhost:27017")).GetDatabase(
+                    "freezer-dev");
         }
     }
 

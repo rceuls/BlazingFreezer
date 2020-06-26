@@ -6,13 +6,10 @@ namespace BlazingFreezer.API.Models
 {
     public class FreezerMongoModel
     {
-         [BsonId]
-         public ObjectId Id { get; set; }
+        [BsonId] public ObjectId Id { get; set; }
 
-         [BsonElement("name")]
-         public string Name { get; set; }
-         
-         [BsonElement("drawers")]
-         public IEnumerable<FreezerDrawerMongoModel> Drawers { get; set; }
+        [BsonElement("name")] public string Name { get; set; }
+
+        [BsonElement("drawers")] public IEnumerable<FreezerDrawerMongoModel> Drawers { get; set; }
     }
 }
