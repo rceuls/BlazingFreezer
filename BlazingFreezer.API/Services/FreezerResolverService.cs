@@ -19,17 +19,21 @@ namespace BlazingFreezer.API.Services
         public override async Task<FreezerOverviewReply> GetFreezerOverview(FreezerOverviewRequest request,
             ServerCallContext context)
         {
+            var projection = new FindExpressionProjectionDefinition<BsonDocument, FreezerOverviewItem>(p => new FreezerOverviewItem
+            {
+                Id = p["_id"].ToString(),
+                Name = p["name"].AsString
+            });
+
+
             var items = await _mongoService
                 .GetDatabase()
                 .GetCollection<BsonDocument>("freezers")
-                .FindAsync(new BsonDocument());
+                .Find(_ => true)
+                .Project(projection)
+                .ToListAsync();
             var ret = new FreezerOverviewReply();
-            ret.Items.AddRange(items.ToList().Select(x => new FreezerOverviewItem
-            {
-                Id = x["_id"].ToString(),
-                Name = x["name"].AsString
-            }));
-
+            ret.Items.AddRange(items);
             return ret;
         }
     }
