@@ -7,10 +7,11 @@ service FreezerService {
 }
 
 message FreezerOverviewRequest {
+  
 }
 
-message FreezerDetailRequest {
-  string id = 1;
+message FreezerDetailsRequest {
+  string freezerId = 1;
 }
 
 message FreezerDetailsReply { 
@@ -20,7 +21,9 @@ message FreezerDetailsReply {
 message FreezerDetailsItem {
   string drawerId = 1;
   string itemId = 2;
-  
+  string name = 3;
+  bool isVacuum = 4;
+  string since = 5;
 }
 
 message FreezerOverviewReply {

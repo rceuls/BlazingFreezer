@@ -20,7 +20,7 @@ else
         <tbody>
         @foreach (var item in FreezerItems)
         {
-            <tr>
+            <tr @onclick=@(e => RowClick(item.Id))>
                 <td>@item.Name</td>
                 <td>@item.DrawerCount</td>
                 <td>@item.ItemCount</td>
@@ -36,6 +36,15 @@ else
     protected override async Task OnInitializedAsync()
     {
         FreezerItems = (await FreezerClient.GetFreezerOverviewAsync(new FreezerOverviewRequest())).Items;
+    }
+
+    private async Task RowClick(string freezerId)
+    {
+        var data = await FreezerClient.GetFreezerDetailsAsync(new FreezerDetailsRequest()
+        {
+            FreezerId = freezerId
+        });
+        Console.WriteLine(data.Items.Count);
     }
 
 }
