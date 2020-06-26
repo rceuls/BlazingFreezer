@@ -15,4 +15,6 @@ message FreezerOverviewReply {
 message FreezerOverviewItem {
   string id = 1;
   string name = 2;
+  int32 drawerCount = 3;
+  int32 itemCount = 4;
 }

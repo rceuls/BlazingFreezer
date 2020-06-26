@@ -9,10 +9,12 @@
 }
 else
 {
-    <table>
+    <table class="table">
         <thead>
-        <tr>
-            <th>Naam</th>
+            <tr>
+                <td>Naam</td>
+                <td>Schuiven</td>
+                <td>Items</td>
         </tr>
         </thead>
         <tbody>
@@ -20,6 +22,8 @@ else
         {
             <tr>
                 <td>@item.Name</td>
+                <td>@item.DrawerCount</td>
+                <td>@item.ItemCount</td>
             </tr>
         }
         </tbody>
