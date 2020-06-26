@@ -1,0 +1,38 @@
+﻿@page "/freezer"
+@inject FreezerService.FreezerServiceClient FreezerClient
+
+<h1>Vriezers</h1>
+
+@if (FreezerItems == null || !FreezerItems.Any())
+{
+    <p>Geen data beschikbaar.</p>
+}
+else
+{
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Naam</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in FreezerItems)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<FreezerOverviewItem> FreezerItems;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        FreezerItems = (await FreezerClient.GetFreezerOverviewAsync(new FreezerOverviewRequest() )).Items;
+    }
+}

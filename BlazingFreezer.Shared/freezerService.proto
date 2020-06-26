@@ -1,0 +1,18 @@
+syntax = "proto3";
+option csharp_namespace = "BlazingFreezer";
+
+service FreezerService {
+  rpc GetFreezerOverview (FreezerOverviewRequest) returns (FreezerOverviewReply);
+}
+
+message FreezerOverviewRequest {
+}
+
+message FreezerOverviewReply {
+  repeated FreezerOverviewItem items = 1;
+}
+
+message FreezerOverviewItem {
+  string id = 1;
+  string name = 2;
+}
