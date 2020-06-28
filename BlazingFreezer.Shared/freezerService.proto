@@ -11,7 +11,7 @@ message FreezerOverviewRequest {
 }
 
 message FreezerDetailsRequest {
-  string freezerId = 1;
+  int32 freezerId = 1;
 }
 
 message FreezerDetailsReply { 
@@ -19,8 +19,8 @@ message FreezerDetailsReply {
 }
 
 message FreezerDetailsItem {
-  string drawerId = 1;
-  string itemId = 2;
+  int32 drawerId = 1;
+  int32 itemId = 2;
   string name = 3;
   bool isVacuum = 4;
   string since = 5;
@@ -31,7 +31,7 @@ message FreezerOverviewReply {
 }
 
 message FreezerOverviewItem {
-  string id = 1;
+  int32 freezerId = 1;
   string name = 2;
   int32 drawerCount = 3;
   int32 itemCount = 4;

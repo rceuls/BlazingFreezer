@@ -5,7 +5,7 @@ Blazing Freezer is a proof of concept, using the following technologies:
 * .NET Core
 * GRPC
 * Blazor
-* MongoDB
+* PostgreSQL
 
 The basic concept is that of a freezer management app - as we have multiple freezers at home we need a way to manage our inventory.
 
@@ -25,4 +25,4 @@ This contains shared code, the most important being the `.proto` files
 
 ## Developing/running the project
 
-You need .NET Core SDK (3.1.x) for compiling and running the project. In the future deploys will be simplified (probably using Docker), but for now you need to run each project separately (via `dotnet watch run`) in it's own subfolder. You also need a mongodb database; a `docker-compose.yml` with some data is provided in the root folder of the project.
+You need .NET Core SDK (3.1.x) for compiling and running the project. In the future deploys will be simplified (probably using Docker), but for now you need to run each project separately (via `dotnet watch run`) in it's own subfolder. You also need a PostgreSQL database; a `docker-compose.yml` is provided. Do not forget to run the migrations inside the API folder.

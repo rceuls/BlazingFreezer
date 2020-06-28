@@ -28,7 +28,7 @@ else
             </tr>
             @if (item.IsVisible)
             {
-                <FreezerContentsOverview FreezerId=@item.Item.Id />
+                <FreezerContentsOverview FreezerId=@item.Item.FreezerId />
             }
         }
         </tbody>
@@ -47,9 +47,9 @@ else
 
         public bool IsVisible { get; set; }
 
-        public FreezerOverviewItem Item { get; set; }
+        public FreezerOverviewItem Item { get; }
     }
-    
+
     private ObservableCollection<FreezerOverviewItemDto> _freezerItems;
 
     protected override async Task OnInitializedAsync()
@@ -58,4 +58,5 @@ else
             await FreezerClient.GetFreezerOverviewAsync(new FreezerOverviewRequest())).Items
             .Select(x => new FreezerOverviewItemDto(x, false)));
     }
+
 }

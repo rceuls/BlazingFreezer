@@ -1,23 +1,15 @@
 # Use root/example as user/password credentials
 version: '3.1'
 
-services:
-  mongo:
-    image: mongo
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: freezer
-      MONGO_INITDB_ROOT_PASSWORD: freezer-pwd
-      MONGO_INITDB_DATABASE: freezer-dev
-    volumes:
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-    ports:
-    - 27017:27017
 
-  mongo-express:
-    image: mongo-express
+services:
+  db:
+    image: postgres
     restart: always
-    ports:
-      - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: freezer
-      ME_CONFIG_MONGODB_ADMINPASSWORD: freezer-pwd
+      POSTGRES_PASSWORD: p@ssw0rd
+      POSTGRES_USER: dev-user
+      POSTGRES_DB: freezer-dev
+    ports:
+      - 5432:5432
+    command: ["postgres", "-c", "log_statement=all"]
