@@ -1,0 +1,42 @@
+@inject FreezerService.FreezerServiceClient FreezerClient
+    
+
+@if (_items == null || !_items.Any())
+    {
+        <tr>
+            <td>
+                Geen data.
+            </td>
+        </tr>
+
+    }
+    else
+    {
+        @foreach (var subItem in _items)
+        {
+            <tr>
+                <td>
+                    @subItem.Name
+                </td>
+                <td>
+                    @subItem.Since
+                </td>
+            </tr>
+        }
+    }
+
+@code {
+    [Parameter]
+    public string FreezerId { get; set; }
+    
+    private IEnumerable<FreezerDetailsItem> _items;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _items = (await FreezerClient.GetFreezerDetailsAsync(new FreezerDetailsRequest
+        {
+            FreezerId = FreezerId
+        })).Items;
+    }
+
+}

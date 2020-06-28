@@ -1,9 +1,10 @@
 ﻿@page "/freezer"
+@using System.Collections.ObjectModel
 @inject FreezerService.FreezerServiceClient FreezerClient
 
 <h1>Vriezers</h1>
 
-@if (FreezerItems == null || !FreezerItems.Any())
+@if (_freezerItems == null || !_freezerItems.Any())
 {
     <p>Geen data beschikbaar.</p>
 }
@@ -18,33 +19,43 @@ else
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in FreezerItems)
+        @foreach (var item in _freezerItems)
         {
-            <tr @onclick=@(e => RowClick(item.Id))>
-                <td>@item.Name</td>
-                <td>@item.DrawerCount</td>
-                <td>@item.ItemCount</td>
+            <tr @onclick=@(e => item.IsVisible = !item.IsVisible)>
+                <td>@item.Item.Name</td>
+                <td>@item.Item.DrawerCount</td>
+                <td>@item.Item.ItemCount</td>
             </tr>
+            @if (item.IsVisible)
+            {
+                <FreezerContentsOverview FreezerId=@item.Item.Id />
+            }
         }
         </tbody>
     </table>
 }
 
 @code {
-    private IEnumerable<FreezerOverviewItem> FreezerItems;
+
+    private class FreezerOverviewItemDto
+    {
+        public FreezerOverviewItemDto(FreezerOverviewItem item, bool isVisible)
+        {
+            Item = item;
+            IsVisible = isVisible;
+        }
+
+        public bool IsVisible { get; set; }
+
+        public FreezerOverviewItem Item { get; set; }
+    }
+    
+    private ObservableCollection<FreezerOverviewItemDto> _freezerItems;
 
     protected override async Task OnInitializedAsync()
     {
-        FreezerItems = (await FreezerClient.GetFreezerOverviewAsync(new FreezerOverviewRequest())).Items;
+        _freezerItems = new ObservableCollection<FreezerOverviewItemDto>((
+            await FreezerClient.GetFreezerOverviewAsync(new FreezerOverviewRequest())).Items
+            .Select(x => new FreezerOverviewItemDto(x, false)));
     }
-
-    private async Task RowClick(string freezerId)
-    {
-        var data = await FreezerClient.GetFreezerDetailsAsync(new FreezerDetailsRequest()
-        {
-            FreezerId = freezerId
-        });
-        Console.WriteLine(data.Items.Count);
-    }
-
 }
